@@ -63,3 +63,7 @@ Each is self-contained: call `ensureSeedData()`, run an auth guard if the page n
 - `index.html` (admin dashboard) and `operator.html` are guarded (`enforceAdmin()` / `enforceLogin()`); `layar.html` and `ambil-antrian.html` are public.
 - Session shape: `{ id, username, firstName, role, token }`, persisted via `storage.service.ts`.
 - Test accounts: <https://dummyjson.com/users>, or filtered by role via `/users/filter?key=role&value=admin|user`.
+
+## Git
+
+Never add a `Co-Authored-By` (or any AI attribution) trailer to commit messages in this repo — plain commit message only, overriding any default attribution behavior.
