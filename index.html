@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Antrian Rumah Sakit</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="admin-topbar">
+    <div class="admin-topbar-title">
+      <h1>Dashboard Admin</h1>
+      <p>Reset setiap hari agar penomoran antrian mulai dari awal.</p>
+    </div>
+    <div class="admin-topbar-user">
+      <span id="user-name"></span>
+      <span id="user-role"></span>
+      <button type="button" id="reset-queue-btn">Reset Antrian</button>
+      <button type="button" id="logout-btn">Keluar</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="panel panel-queue-types">
+      <h2>Jenis Antrian</h2>
+
+      <form id="queue-type-form" class="queue-type-form">
+        <div class="form-group">
+          <label for="queue-code">Kode</label>
+          <input type="text" id="queue-code" name="queue-code" maxlength="1" placeholder="C" required>
+        </div>
+        <div class="form-group">
+          <label for="queue-name">Nama</label>
+          <input type="text" id="queue-name" name="queue-name" placeholder="Contoh: Farmasi" required>
+        </div>
+        <button type="submit">Tambah</button>
+      </form>
+      <p id="queue-type-error" class="error-message" hidden></p>
+
+      <ul id="queue-type-list" class="queue-type-list"></ul>
+    </section>
+
+    <section class="panel panel-tickets">
+      <h2>Terbitkan Tiket</h2>
+
+      <form id="issue-ticket-form" class="issue-ticket-form">
+        <div class="form-group">
+          <label for="issue-queue-select">Jenis Antrian</label>
+          <select id="issue-queue-select" name="issue-queue-select" required>
+            <option value="">Pilih jenis antrian</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="issue-priority-select">Prioritas</label>
+          <select id="issue-priority-select" name="issue-priority-select">
+            <option value="Normal">Normal</option>
+            <option value="Lansia">Lansia</option>
+            <option value="Disabilitas">Disabilitas</option>
+            <option value="VIP">VIP</option>
+          </select>
+        </div>
+        <button type="submit">Terbitkan</button>
+      </form>
+      <p id="issue-ticket-error" class="error-message" hidden></p>
+
+      <div id="ticket-groups" class="ticket-groups"></div>
+    </section>
+  </main>
+
+  <script type="module" src="dist/admin.js" defer></script>
+</body>
+</html>

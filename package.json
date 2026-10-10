@@ -1,0 +1,19 @@
+{
+  "name": "pweb-ts-a07-2026-antrian-rumah-sakit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aplikasi Antrian Rumah Sakit - Praktikum Modul 3 Pemrograman Web",
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.mjs",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "copy:assets": "node scripts/copy-assets.mjs",
+    "dev": "npm run copy:assets && concurrently -k -n tsc,assets,serve -c blue,yellow,green \"tsc --watch\" \"node scripts/copy-assets.mjs --watch\" \"live-server dist --port=5500\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "live-server": "^1.2.2",
+    "typescript": "^5.6.0"
+  }
+}

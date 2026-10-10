@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambil Antrian - Antrian Rumah Sakit</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="ambil-topbar">
+    <h1>Ambil Nomor Antrian</h1>
+    <p>Pilih jenis layanan untuk mengambil nomor antrian.</p>
+  </header>
+
+  <main id="ambil-panel" class="ambil-panel"></main>
+
+  <section id="ticket-result" class="ticket-result" hidden>
+    <h2>Tiket Anda</h2>
+    <p id="ticket-result-code"></p>
+    <p id="ticket-result-detail"></p>
+    <button type="button" id="ticket-result-close">Tutup</button>
+  </section>
+
+  <script type="module" src="dist/ambil-antrian.js" defer></script>
+</body>
+</html>
