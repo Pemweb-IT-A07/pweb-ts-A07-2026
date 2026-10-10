@@ -12,6 +12,15 @@
       <h1>Masuk</h1>
       <p>Halaman ini untuk mengakses Dashboard Admin dan Panel Operator. Layar Kiosk tidak memerlukan login.</p>
 
+      <div id="already-logged-in" class="already-logged-in" hidden>
+        <p>
+          Sudah login sebagai <strong id="logged-in-name"></strong>
+          (<span id="logged-in-role"></span>).
+        </p>
+        <button type="button" id="continue-btn">Lanjutkan</button>
+        <button type="button" id="logout-btn">Logout</button>
+      </div>
+
       <form id="login-form" class="login-form">
         <div class="form-group">
           <label for="username">Username</label>

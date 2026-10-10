@@ -1,11 +1,24 @@
-import { login, redirectAfterLogin } from "./services/auth.service.js";
+import { login, logout, redirectAfterLogin } from "./services/auth.service.js";
 import { getSession } from "./services/storage.service.js";
 import { qs } from "./utils/dom.js";
 
 function init(): void {
   const existing = getSession();
   if (existing) {
-    redirectAfterLogin(existing);
+    const form = qs<HTMLFormElement>("#login-form");
+    const alreadyLoggedIn = qs<HTMLDivElement>("#already-logged-in");
+    const loggedInName = qs<HTMLElement>("#logged-in-name");
+    const loggedInRole = qs<HTMLElement>("#logged-in-role");
+    const continueBtn = qs<HTMLButtonElement>("#continue-btn");
+    const logoutBtn = qs<HTMLButtonElement>("#logout-btn");
+
+    form.hidden = true;
+    alreadyLoggedIn.hidden = false;
+    loggedInName.textContent = existing.firstName;
+    loggedInRole.textContent = existing.role;
+
+    continueBtn.addEventListener("click", () => redirectAfterLogin(existing));
+    logoutBtn.addEventListener("click", () => logout());
     return;
   }
 

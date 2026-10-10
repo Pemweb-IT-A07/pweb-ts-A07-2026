@@ -1,9 +1,9 @@
 {
-  "name": "pweb-ts-a07-2026-antrian-rumah-sakit",
+  "name": "pweb-ts-a07-2026",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Aplikasi Antrian Rumah Sakit - Praktikum Modul 3 Pemrograman Web",
+  "description": "Aplikasi Antrian Rumah Sakit - Praktikum Modul 3 Pemrograman Web Kelompok A07",
   "scripts": {
     "build": "tsc && node scripts/copy-assets.mjs",
     "watch": "tsc --watch",
