@@ -455,6 +455,36 @@ body:has(.admin-main) .admin-topbar {
   margin-top: 0.25rem;
 }
 
+.password-field {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.password-field input {
+  min-width: 0;
+  flex: 1;
+}
+
+.password-field button {
+  display: grid;
+  width: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
+  margin-top: 0;
+  place-items: center;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.password-field button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.password-field button:hover:not(:disabled) {
+  background: #ccebea;
+}
+
 .login-hint {
   margin: 1.25rem 0 0;
   padding-top: 1rem;
@@ -478,6 +508,21 @@ body:has(.admin-main) .admin-topbar {
   display: block;
   padding-top: clamp(2rem, 6vw, 4rem);
   padding-bottom: 1.5rem;
+}
+
+.ambil-topbar-content h1 {
+  margin-bottom: 0.35rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.ambil-topbar-content p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.ambil-topbar > button {
+  margin-top: 1rem;
 }
 
 .ambil-panel {
@@ -551,7 +596,7 @@ body:has(.admin-main) .admin-topbar {
 }
 
 .ambil-priority-buttons button {
-  min-height: 34px;
+  min-height: 42px;
   padding: 0.35rem 0.6rem;
   background: var(--color-primary-soft);
   color: var(--color-primary-dark);
@@ -605,6 +650,7 @@ body:has(.admin-main) .admin-topbar {
   width: min(100%, 420px);
   padding-bottom: 1rem;
   border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--color-primary);
 }
 
 .operator-topbar {

@@ -25,8 +25,20 @@ function init(): void {
   const form = qs<HTMLFormElement>("#login-form");
   const usernameInput = qs<HTMLInputElement>("#username");
   const passwordInput = qs<HTMLInputElement>("#password");
+  const togglePasswordButton = qs<HTMLButtonElement>("#toggle-password");
+  const eyeOpenIcon = qs<SVGSVGElement>(".password-eye-open");
+  const eyeClosedIcon = qs<SVGSVGElement>(".password-eye-closed");
   const submitButton = qs<HTMLButtonElement>("#login-submit");
   const errorMessage = qs<HTMLParagraphElement>("#login-error");
+
+  togglePasswordButton.addEventListener("click", () => {
+    const showPassword = passwordInput.type === "password";
+    passwordInput.type = showPassword ? "text" : "password";
+    togglePasswordButton.setAttribute("aria-label", `${showPassword ? "Sembunyikan" : "Tampilkan"} password`);
+    togglePasswordButton.setAttribute("aria-pressed", String(showPassword));
+    eyeOpenIcon.toggleAttribute("hidden", showPassword);
+    eyeClosedIcon.toggleAttribute("hidden", !showPassword);
+  });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
