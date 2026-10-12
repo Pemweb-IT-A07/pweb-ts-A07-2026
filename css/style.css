@@ -1,1 +1,785 @@
-/* Sengaja dikosongkan — styling dikerjakan secara manual. */
+:root {
+  color-scheme: light;
+  --color-primary: #087f8c;
+  --color-primary-dark: #066672;
+  --color-primary-soft: #e5f5f5;
+  --color-accent: #31b6a5;
+  --color-background: #f3f8fa;
+  --color-surface: #ffffff;
+  --color-text: #193348;
+  --color-muted: #6e8493;
+  --color-border: #dce8ed;
+  --color-danger: #c4424b;
+  --color-danger-soft: #fff0f0;
+  --shadow-card: 0 12px 32px rgb(27 73 91 / 8%);
+  --radius-card: 18px;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--color-text);
+  background: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 90% 0%, rgb(49 182 165 / 8%), transparent 32rem),
+    var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  min-height: 42px;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  box-shadow: 0 5px 14px rgb(8 127 140 / 18%);
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgb(49 182 165 / 45%);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  background: #bac9cf;
+  cursor: not-allowed;
+}
+
+button[data-action="delete"],
+#reset-queue-btn,
+#logout-btn {
+  background: var(--color-danger);
+}
+
+button[data-action="delete"]:hover:not(:disabled),
+#reset-queue-btn:hover:not(:disabled),
+#logout-btn:hover:not(:disabled) {
+  background: #a9343d;
+}
+
+a {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.admin-topbar,
+.ambil-topbar,
+.operator-topbar,
+.layar-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem clamp(1rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--color-border);
+  background: rgb(255 255 255 / 92%);
+}
+
+.admin-topbar-title h1,
+.ambil-topbar h1,
+.operator-topbar h1,
+.layar-topbar h1 {
+  margin-bottom: 0.35rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+body:has(.admin-main) .admin-topbar {
+  border-bottom-color: #dce8ed;
+  background: linear-gradient(110deg, #e7f8df 0%, #def7f1 52%, #e3edff 100%);
+}
+
+.admin-topbar-title p,
+.ambil-topbar p,
+.layar-topbar p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.admin-topbar-user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+#user-name {
+  font-weight: 700;
+}
+
+#user-role {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.admin-main {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.5fr);
+  align-items: start;
+  gap: 1.25rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.panel,
+.login-card,
+.ambil-card,
+.layar-card,
+.operator-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.panel {
+  min-width: 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.panel h2 {
+  margin-bottom: 1.25rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form-group label {
+  color: #405d6e;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #fbfdfe;
+  color: var(--color-text);
+}
+
+.form-group input::placeholder {
+  color: #9aabb4;
+}
+
+.queue-type-form,
+.issue-ticket-form {
+  display: grid;
+  align-items: end;
+  gap: 0.85rem;
+}
+
+.queue-type-form {
+  grid-template-columns: minmax(80px, 0.45fr) minmax(0, 1fr) auto;
+}
+
+.issue-ticket-form {
+  grid-template-columns: minmax(0, 1fr) minmax(130px, 0.7fr) auto;
+  margin-bottom: 1rem;
+}
+
+.queue-type-list,
+.ticket-groups {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.queue-type-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.queue-type-item,
+.ticket-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fbfdfe;
+}
+
+.queue-type-info {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.queue-type-info strong {
+  color: var(--color-text);
+}
+
+.queue-type-info span,
+.ticket-priority,
+.ticket-status {
+  color: var(--color-muted);
+  font-size: 0.83rem;
+}
+
+.queue-type-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.queue-type-actions button,
+.ticket-actions button,
+.operator-card-actions button {
+  min-height: 36px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.84rem;
+}
+
+.ticket-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  align-items: start;
+  gap: 1rem;
+}
+
+.ticket-group {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fbfdfe;
+}
+
+.ticket-group h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.ticket-group > p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.ticket-row {
+  flex-wrap: wrap;
+  margin-top: 0.55rem;
+  padding: 0.65rem;
+  background: #fff;
+}
+
+.ticket-row-selesai {
+  border-color: #a7e2bd;
+  background: #f0fbf4;
+}
+
+.ticket-row-dilewati {
+  border-color: #f0b6bb;
+  background: #fff3f3;
+}
+
+.ticket-number {
+  color: var(--color-primary-dark);
+  font-weight: 800;
+}
+
+.ticket-priority,
+.ticket-status {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-weight: 650;
+}
+
+.ticket-priority-normal {
+  background: #fce4ec;
+  color: #ad315b;
+}
+
+.ticket-priority-lansia {
+  background: #e2edff;
+  color: #2856a3;
+}
+
+.ticket-priority-disabilitas {
+  background: #fff2c9;
+  color: #806000;
+}
+
+.ticket-priority-vip {
+  background: #eee3ff;
+  color: #6535a3;
+}
+
+.ticket-status-selesai {
+  background: #d7f4e1;
+  color: #176b39;
+}
+
+.ticket-status-dilewati {
+  background: #ffe0e2;
+  color: #a52d39;
+}
+
+.ticket-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.error-message {
+  margin: 0.75rem 0 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #f1c7c9;
+  border-radius: 10px;
+  background: var(--color-danger-soft);
+  color: #a9343d;
+  font-size: 0.9rem;
+}
+
+.login-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1.25rem;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgb(49 182 165 / 18%), transparent 30rem),
+    radial-gradient(ellipse at 85% 90%, rgb(8 127 140 / 12%), transparent 30rem),
+    var(--color-background);
+}
+
+.login-card {
+  width: min(100%, 460px);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.login-card h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.login-card > p {
+  color: var(--color-muted);
+}
+
+.login-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.login-form button {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.login-hint {
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.already-logged-in {
+  margin-top: 1.25rem;
+}
+
+.already-logged-in p {
+  color: var(--color-muted);
+}
+
+.already-logged-in button + button {
+  margin-left: 0.45rem;
+}
+
+.ambil-topbar {
+  display: block;
+  padding-top: clamp(2rem, 6vw, 4rem);
+  padding-bottom: 1.5rem;
+}
+
+.ambil-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.ambil-card {
+  overflow: hidden;
+  padding: 1.25rem;
+}
+
+.ambil-card-header,
+.layar-card-header,
+.operator-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ambil-card-header h2,
+.layar-card-header h2,
+.operator-card-header h2 {
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
+
+.ambil-card-header span,
+.layar-card-header span {
+  display: grid;
+  min-width: 42px;
+  min-height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.ambil-card > p {
+  margin: 1rem 0;
+  color: var(--color-muted);
+}
+
+.ambil-card > button {
+  width: 100%;
+}
+
+.ambil-priority-options {
+  margin-top: 0.9rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.ambil-priority-options summary {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.ambil-priority-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.ambil-priority-buttons button {
+  min-height: 34px;
+  padding: 0.35rem 0.6rem;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 0.8rem;
+}
+
+.ambil-priority-buttons button:hover:not(:disabled) {
+  background: #ccebea;
+}
+
+.ticket-result {
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 2rem;
+  background: rgb(18 44 59 / 55%);
+  backdrop-filter: blur(5px);
+}
+
+.ticket-result > * {
+  width: min(100%, 420px);
+  margin-bottom: 0;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  background: #fff;
+  text-align: center;
+}
+
+.ticket-result h2 {
+  padding-top: 1.5rem;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+#ticket-result-code {
+  padding-top: 0.5rem;
+  color: var(--color-primary);
+  font-size: clamp(2.5rem, 10vw, 4rem);
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+#ticket-result-detail {
+  padding-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+#ticket-result-close {
+  width: min(100%, 420px);
+  padding-bottom: 1rem;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+}
+
+.operator-topbar {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.operator-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  align-items: start;
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.operator-card {
+  overflow: hidden;
+  padding: 1.25rem;
+}
+
+.operator-card-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.operator-card-header > span,
+.operator-card-body > div > span {
+  color: var(--color-muted);
+  font-size: 0.82rem;
+}
+
+.operator-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.operator-current,
+.operator-next {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem;
+  border-radius: 12px;
+  background: #f4f9fa;
+}
+
+.operator-current strong,
+.operator-next strong {
+  color: var(--color-primary-dark);
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.operator-next small {
+  color: var(--color-muted);
+}
+
+.operator-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.operator-empty {
+  margin: 1rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.layar-topbar {
+  position: relative;
+  z-index: 1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.layar-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.layar-card {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.layar-card-header {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.layar-card-body {
+  display: grid;
+  flex: 1;
+  align-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.layar-status {
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.layar-number {
+  color: var(--color-text);
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+.layar-empty {
+  max-width: 280px;
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.layar-card-footer {
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+  background: #fbfdfe;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 850px) {
+  .admin-main {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-topbar-user {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-topbar,
+  .operator-topbar,
+  .layar-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-topbar-user {
+    width: 100%;
+  }
+
+  .queue-type-form,
+  .issue-ticket-form {
+    grid-template-columns: 1fr;
+  }
+
+  .queue-type-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .queue-type-actions {
+    justify-content: flex-start;
+  }
+
+  .ticket-row {
+    justify-content: flex-start;
+  }
+
+  .ticket-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ticket-actions button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -98,7 +98,9 @@ if (session) {
 
   function renderTicketRow(ticket: Ticket): HTMLDivElement {
     const row = document.createElement("div");
-    row.className = "ticket-row";
+    const statusClass = ticket.status.toLowerCase();
+    const priorityClass = ticket.priority.toLowerCase();
+    row.className = `ticket-row ticket-row-${statusClass}`;
 
     let actionsHtml = "";
     if (ticket.status === "Menunggu") {
@@ -112,8 +114,8 @@ if (session) {
 
     row.innerHTML = `
       <span class="ticket-number">${formatTicketCode(ticket.queueCode, ticket.number)}</span>
-      <span class="ticket-priority">${ticket.priority}</span>
-      <span class="ticket-status">${ticket.status}</span>
+      <span class="ticket-priority ticket-priority-${priorityClass}">${ticket.priority}</span>
+      <span class="ticket-status ticket-status-${statusClass}">${ticket.status}</span>
       <span class="ticket-actions">${actionsHtml}</span>
     `;
     return row;
