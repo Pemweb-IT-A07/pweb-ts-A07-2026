@@ -134,7 +134,7 @@ body:has(.admin-main) .admin-topbar {
   background: linear-gradient(110deg, #e7f8df 0%, #def7f1 52%, #e3edff 100%);
 }
 
-body:has(.operator-panel) .operator-topbar {
+.operator-page .operator-topbar {
   border-bottom-color: #dce8ed;
   background: linear-gradient(110deg, #e7f8df 0%, #def7f1 52%, #e3edff 100%);
 }
@@ -630,10 +630,13 @@ body:has(.operator-panel) .operator-topbar {
   color: var(--color-primary-dark);
   font-weight: 650;
   text-decoration: none;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .operator-nav-link:hover {
   background: var(--color-primary-soft);
+  box-shadow: 0 5px 14px rgb(8 127 140 / 12%);
+  transform: translateY(-1px);
 }
 
 .operator-panel {
@@ -858,6 +861,17 @@ body:has(.operator-panel) .operator-topbar {
   .layar-topbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .operator-topbar-actions {
+    width: 100%;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .operator-nav-link {
+    flex: 0 1 auto;
+    white-space: nowrap;
   }
 
   .layar-main {
