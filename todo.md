@@ -73,4 +73,4 @@ Checklist dibuat dari `Soal Praktikum Modul 3.pdf` dibandingkan dengan kode di `
 
 - [x] Desain antarmuka — `css/style.css` sudah diisi (976 baris, bukan placeholder kosong lagi; `CLAUDE.md`/README perlu diperbarui agar tidak menyebut "kosong")
 - [x] Respon suara/audio panggilan antrian (di `layar.ts`)
-- [ ] Fitur pendukung lain (opsional, belum ada — misal highlight animasi nomor baru, notifikasi, dsb.)
+- [x] Fitur pendukung lain: highlight + animasi pop pada kartu & nomor saat ada panggilan baru di `layar.ts` (6 detik, `layar-card--highlight`)

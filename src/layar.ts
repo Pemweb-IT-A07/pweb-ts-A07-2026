@@ -4,6 +4,7 @@ import { qs } from "./utils/dom.js";
 import { formatTicketCode, formatTime } from "./utils/format.js";
 
 const POLL_INTERVAL_MS = 2500;
+const HIGHLIGHT_DURATION_MS = 6000;
 
 ensureSeedData();
 
@@ -12,12 +13,14 @@ const lastUpdated = qs<HTMLParagraphElement>("#last-updated");
 const fullscreenBtn = qs<HTMLButtonElement>("#fullscreen-btn");
 
 const lastAnnouncedTicket = new Map<string, string>();
+const calledAt = new Map<string, number>();
 const announcementSound = new Audio("audio/panggilan.mp3");
 
 function announceIfNeeded(type: QueueType, called: Ticket | undefined): void {
   if (!called) return;
   if (lastAnnouncedTicket.get(type.code) === called.id) return;
   lastAnnouncedTicket.set(type.code, called.id);
+  calledAt.set(type.code, Date.now());
 
   announcementSound.currentTime = 0;
   announcementSound.play().catch(() => {
@@ -28,9 +31,11 @@ function announceIfNeeded(type: QueueType, called: Ticket | undefined): void {
 function renderCard(type: QueueType): HTMLDivElement {
   const called = getCalledTicket(type.code);
   const waitingCount = queueWaitingCount(type.code);
+  const calledTimestamp = calledAt.get(type.code);
+  const isHighlighted = !!called && !!calledTimestamp && Date.now() - calledTimestamp < HIGHLIGHT_DURATION_MS;
 
   const card = document.createElement("div");
-  card.className = "layar-card";
+  card.className = isHighlighted ? "layar-card layar-card--highlight" : "layar-card";
   card.innerHTML = `
     <div class="layar-card-header">
       <h2>${type.name}</h2>
