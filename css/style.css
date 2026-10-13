@@ -92,13 +92,15 @@ button:disabled {
 
 button[data-action="delete"],
 #reset-queue-btn,
-#logout-btn {
+#logout-btn,
+#ambil-logout-btn {
   background: var(--color-danger);
 }
 
 button[data-action="delete"]:hover:not(:disabled),
 #reset-queue-btn:hover:not(:disabled),
-#logout-btn:hover:not(:disabled) {
+#logout-btn:hover:not(:disabled),
+#ambil-logout-btn:hover:not(:disabled) {
   background: #a9343d;
 }
 
@@ -135,6 +137,11 @@ body:has(.admin-main) .admin-topbar {
 }
 
 .operator-page .operator-topbar {
+  border-bottom-color: #dce8ed;
+  background: linear-gradient(110deg, #e7f8df 0%, #def7f1 52%, #e3edff 100%);
+}
+
+.ambil-topbar {
   border-bottom-color: #dce8ed;
   background: linear-gradient(110deg, #e7f8df 0%, #def7f1 52%, #e3edff 100%);
 }
@@ -505,9 +512,12 @@ body:has(.admin-main) .admin-topbar {
 }
 
 .ambil-topbar {
-  display: block;
-  padding-top: clamp(2rem, 6vw, 4rem);
-  padding-bottom: 1.5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.ambil-topbar-content {
+  min-width: 0;
 }
 
 .ambil-topbar-content h1 {
@@ -522,7 +532,7 @@ body:has(.admin-main) .admin-topbar {
 }
 
 .ambil-topbar > button {
-  margin-top: 1rem;
+  flex-shrink: 0;
 }
 
 .ambil-panel {
@@ -882,6 +892,11 @@ body:has(.admin-main) .admin-topbar {
   .layar-topbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .ambil-topbar {
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .operator-topbar-actions {

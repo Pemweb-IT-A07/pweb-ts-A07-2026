@@ -1,6 +1,6 @@
 import { ensureSeedData, issueTicket, listQueueTypes, queueWaitingCount } from "./services/queue.service.js";
+import { enforceLogin, logout } from "./services/auth.service.js";
 import { getSession } from "./services/storage.service.js";
-import { logout } from "./services/auth.service.js";
 import type { PriorityLevel, QueueType } from "./types/index.js";
 import { qs } from "./utils/dom.js";
 import { formatTicketCode } from "./utils/format.js";
@@ -99,6 +99,8 @@ panel.addEventListener("click", (event) => {
   const code = target.dataset["code"];
   const priority = target.dataset["priority"] as PriorityLevel | undefined;
   if (action !== "ambil" || !code || !priority) return;
+
+  if (!enforceLogin()) return;
 
   closePriorityOptions();
   const ticket = issueTicket(code, priority);

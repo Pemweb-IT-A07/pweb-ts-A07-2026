@@ -27,7 +27,7 @@ Checklist dibuat dari `Soal Praktikum Modul 3.pdf` dibandingkan dengan kode di `
 - [x] Error handling visual dengan try...catch (kredensial salah / jaringan gagal)
 - [x] Auto redirect: admin/moderator → `index.html`; user biasa → `ambil-antrian.html`
   - ⚠️ Spec menyebut user biasa boleh ke `operator.html` **atau** `ambil-antrian.html` — saat ini selalu ke `ambil-antrian.html`. Kemungkinan sudah cukup (spec pakai "atau"), tapi cek lagi kalau asisten minta keduanya.
-- [x] `layar.html` & `ambil-antrian.html` publik tanpa login
+- [x] `layar.html` publik tanpa login; pengambilan antrian di `ambil-antrian.html` perlu login
 
 ## 3. Halaman Dashboard Admin (`index.html` / `admin.ts`)
 
@@ -57,7 +57,7 @@ Checklist dibuat dari `Soal Praktikum Modul 3.pdf` dibandingkan dengan kode di `
 
 ## 6. Halaman Ambil Antrian (`ambil-antrian.html` / `ambil-antrian.ts`)
 
-- [x] Publik, self-service, pilih jenis antrian + prioritas (Normal/Lansia/Disabilitas/VIP)
+- [x] Self-service setelah login, pilih jenis antrian + prioritas (Normal/Lansia/Disabilitas/VIP)
 - [x] Format nomor tiket `Kode-3Digit` (`formatTicketCode`, contoh A-001)
 - [x] Jenis antrian baru dari admin otomatis muncul tanpa reload (polling 2.5 detik)
 

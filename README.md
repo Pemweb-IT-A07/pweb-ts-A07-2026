@@ -11,7 +11,7 @@ Aplikasi antrian rumah sakit sederhana. Dibuat *native* (tanpa framework/library
 ├── index.html                Dashboard Admin (butuh login admin/moderator)
 ├── operator.html             Panel Operator (butuh login)
 ├── layar.html                 Layar antrian publik (polling 2.5 detik)
-├── ambil-antrian.html         Ambil nomor antrian (publik, self-service)
+├── ambil-antrian.html         Ambil nomor antrian (perlu login)
 ├── css/style.css            Kosong — diisi manual, disalin ke dist/css/ saat build
 ├── scripts/
 │   └── copy-assets.mjs      Menyalin *.html (root) + css/ ke dist/ (dipakai build & dev)
@@ -65,7 +65,7 @@ Dua cara menjalankan aplikasi — pilih salah satu:
 - Karena respons login **tidak** menyertakan field `role`, aplikasi memanggil `GET /users/{id}` untuk mengambil role pengguna (`admin` / `moderator` / `user`).
 - `moderator` diperlakukan setara `admin` di seluruh pemeriksaan akses.
 - Sesi (`token`, `role`, `firstName`, dst.) disimpan di Local Storage sehingga bertahan saat refresh.
-- `index.html` dan `operator.html` dilindungi auth guard (redirect ke `login.html` bila belum login / role tidak sesuai). `layar.html` dan `ambil-antrian.html` bersifat publik.
+- `index.html` dan `operator.html` dilindungi auth guard (redirect ke `login.html` bila belum login / role tidak sesuai). `layar.html` bersifat publik, sedangkan `ambil-antrian.html` memerlukan login; pengguna biasa yang login akan diarahkan ke halaman ini.
 
 Akun uji bisa dilihat di <https://dummyjson.com/users> atau difilter per role:
 `https://dummyjson.com/users/filter?key=role&value=admin` dan `.../?key=role&value=user`.

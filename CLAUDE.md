@@ -60,7 +60,7 @@ Each is self-contained: call `ensureSeedData()`, run an auth guard if the page n
 
 ### Auth/role flow
 
-- `index.html` (admin dashboard) and `operator.html` are guarded (`enforceAdmin()` / `enforceLogin()`); `layar.html` and `ambil-antrian.html` are public.
+- `index.html` (admin dashboard), `operator.html`, and `ambil-antrian.html` are guarded (`enforceAdmin()` / `enforceLogin()`); only `layar.html` is public.
 - Session shape: `{ id, username, firstName, role, token }`, persisted via `storage.service.ts`.
 - Test accounts: <https://dummyjson.com/users>, or filtered by role via `/users/filter?key=role&value=admin|user`.
 
