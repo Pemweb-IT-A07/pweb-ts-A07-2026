@@ -13,6 +13,8 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = join(root, "dist");
 const cssSrcDir = join(root, "css");
 const cssDistDir = join(distDir, "css");
+const audioSrcDir = join(root, "audio");
+const audioDistDir = join(distDir, "audio");
 
 function copyHtml() {
   mkdirSync(distDir, { recursive: true });
@@ -31,18 +33,24 @@ function copyCss() {
   cpSync(cssSrcDir, cssDistDir, { recursive: true });
 }
 
+function copyAudio() {
+  cpSync(audioSrcDir, audioDistDir, { recursive: true });
+}
+
 function copyAll() {
   const count = copyHtml();
   copyCss();
-  console.log(`[copy-assets] ${count} file HTML + css/ disalin ke dist/`);
+  copyAudio();
+  console.log(`[copy-assets] ${count} file HTML + css/ + audio/ disalin ke dist/`);
 }
 
 copyAll();
 
 if (process.argv.includes("--watch")) {
-  console.log("[copy-assets] memantau perubahan pada *.html dan css/ ...");
+  console.log("[copy-assets] memantau perubahan pada *.html, css/, dan audio/ ...");
   watch(root, { recursive: false }, (_event, filename) => {
     if (filename && filename.endsWith(".html")) copyAll();
   });
   watch(cssSrcDir, { recursive: false }, () => copyAll());
+  watch(audioSrcDir, { recursive: false }, () => copyAll());
 }

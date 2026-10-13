@@ -12,19 +12,17 @@ const lastUpdated = qs<HTMLParagraphElement>("#last-updated");
 const fullscreenBtn = qs<HTMLButtonElement>("#fullscreen-btn");
 
 const lastAnnouncedTicket = new Map<string, string>();
+const announcementSound = new Audio("audio/panggilan.mp3");
 
 function announceIfNeeded(type: QueueType, called: Ticket | undefined): void {
   if (!called) return;
   if (lastAnnouncedTicket.get(type.code) === called.id) return;
   lastAnnouncedTicket.set(type.code, called.id);
 
-  if ("speechSynthesis" in window) {
-    const utterance = new SpeechSynthesisUtterance(
-      `Nomor antrian ${formatTicketCode(called.queueCode, called.number)}, silakan menuju loket ${type.name}`
-    );
-    utterance.lang = "id-ID";
-    window.speechSynthesis.speak(utterance);
-  }
+  announcementSound.currentTime = 0;
+  announcementSound.play().catch(() => {
+    /* abaikan bila browser menolak autoplay sebelum ada interaksi pengguna */
+  });
 }
 
 function renderCard(type: QueueType): HTMLDivElement {
