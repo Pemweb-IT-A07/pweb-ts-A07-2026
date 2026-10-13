@@ -7,13 +7,11 @@ const POLL_INTERVAL_MS = 2500;
 
 ensureSeedData();
 
-const tabs = qs<HTMLDivElement>("#layar-tabs");
 const panel = qs<HTMLDivElement>("#layar-panel");
 const lastUpdated = qs<HTMLParagraphElement>("#last-updated");
 const fullscreenBtn = qs<HTMLButtonElement>("#fullscreen-btn");
 
 const lastAnnouncedTicket = new Map<string, string>();
-let selectedQueueCode = "";
 
 function announceIfNeeded(type: QueueType, called: Ticket | undefined): void {
   if (!called) return;
@@ -56,93 +54,21 @@ function renderCard(type: QueueType): HTMLDivElement {
 
 function render(): void {
   const activeTypes = listQueueTypes().filter((t) => t.active);
-  const focusedTab = document.activeElement instanceof HTMLButtonElement &&
-    document.activeElement.classList.contains("layar-tab")
-    ? document.activeElement.dataset["queueCode"]
-    : undefined;
-
-  tabs.replaceChildren();
   panel.replaceChildren();
 
   if (activeTypes.length === 0) {
-    selectedQueueCode = "";
     panel.innerHTML = '<p class="layar-no-queues">Belum ada jenis antrian yang aktif.</p>';
-    panel.removeAttribute("aria-labelledby");
     lastUpdated.textContent = `Diperbarui ${formatTime(Date.now())}`;
     return;
   }
 
-  const firstType = activeTypes[0];
-  if (!firstType) return;
-
-  if (!activeTypes.some((type) => type.code === selectedQueueCode)) {
-    selectedQueueCode = firstType.code;
-  }
-
   for (const type of activeTypes) {
     announceIfNeeded(type, getCalledTicket(type.code));
-
-    const tab = document.createElement("button");
-    tab.type = "button";
-    tab.id = `layar-tab-${type.code}`;
-    tab.className = "layar-tab";
-    tab.dataset["queueCode"] = type.code;
-    tab.setAttribute("role", "tab");
-    tab.setAttribute("aria-controls", "layar-panel");
-    tab.setAttribute("aria-selected", String(type.code === selectedQueueCode));
-    tab.tabIndex = type.code === selectedQueueCode ? 0 : -1;
-    tab.textContent = `${type.name} (${type.code})`;
-    tabs.appendChild(tab);
-  }
-
-  const selectedType = activeTypes.find((type) => type.code === selectedQueueCode);
-  if (selectedType) {
-    panel.setAttribute("aria-labelledby", `layar-tab-${selectedType.code}`);
-    panel.appendChild(renderCard(selectedType));
-  }
-
-  if (focusedTab) {
-    const tabToFocus = Array.from(tabs.querySelectorAll<HTMLButtonElement>(".layar-tab"))
-      .find((tab) => tab.dataset["queueCode"] === focusedTab);
-    tabToFocus?.focus();
+    panel.appendChild(renderCard(type));
   }
 
   lastUpdated.textContent = `Diperbarui ${formatTime(Date.now())}`;
 }
-
-tabs.addEventListener("click", (event) => {
-  if (!(event.target instanceof Element)) return;
-  const tab = event.target.closest<HTMLButtonElement>('[role="tab"]');
-  if (!tab || !tabs.contains(tab)) return;
-
-  selectedQueueCode = tab.dataset["queueCode"] ?? "";
-  render();
-});
-
-tabs.addEventListener("keydown", (event) => {
-  if (!(event.target instanceof HTMLButtonElement) || !event.target.classList.contains("layar-tab")) return;
-
-  const availableTabs = Array.from(tabs.querySelectorAll<HTMLButtonElement>(".layar-tab"));
-  const currentIndex = availableTabs.indexOf(event.target);
-  if (currentIndex < 0 || availableTabs.length === 0) return;
-  let nextIndex = currentIndex;
-
-  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % availableTabs.length;
-  else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + availableTabs.length) % availableTabs.length;
-  else if (event.key === "Home") nextIndex = 0;
-  else if (event.key === "End") nextIndex = availableTabs.length - 1;
-  else return;
-
-  const nextTab = availableTabs[nextIndex];
-  if (!nextTab) return;
-
-  event.preventDefault();
-  selectedQueueCode = nextTab.dataset["queueCode"] ?? "";
-  render();
-  Array.from(tabs.querySelectorAll<HTMLButtonElement>(".layar-tab"))
-    .find((tab) => tab.dataset["queueCode"] === selectedQueueCode)
-    ?.focus();
-});
 
 fullscreenBtn.addEventListener("click", () => {
   if (!document.fullscreenElement) {
